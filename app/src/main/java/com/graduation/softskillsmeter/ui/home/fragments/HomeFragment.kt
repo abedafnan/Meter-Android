@@ -18,7 +18,7 @@ import com.graduation.softskillsmeter.ui.home.adapters.PreviousInterviewsAdapter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), PreviousInterviewsAdapter.OnItemClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeViewModel: HomeViewModel
@@ -40,7 +40,7 @@ class HomeFragment : Fragment() {
 
         homeViewModel.previousInterviewsList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
-                val adapter = PreviousInterviewsAdapter(it)
+                val adapter = PreviousInterviewsAdapter(it, this)
                 binding.recyclerPreviousInterview.layoutManager =
                     LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 binding.recyclerPreviousInterview.adapter = adapter
@@ -48,5 +48,9 @@ class HomeFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onItemClicked() {
+        findNavController().navigate(R.id.action_navigation_home_to_interviewDetailsFragment)
     }
 }

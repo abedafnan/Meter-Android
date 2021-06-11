@@ -6,12 +6,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.graduation.softskillsmeter.databinding.ItemPreviousInterviewBinding
 import com.graduation.softskillsmeter.models.Interview
 
-class PreviousInterviewsAdapter(var data: List<Interview>)
+class PreviousInterviewsAdapter(var data: List<Interview>, val callback: OnItemClickListener)
     :RecyclerView.Adapter<PreviousInterviewsAdapter.PreviousInterviewsViewHolder>(){
 
     inner class PreviousInterviewsViewHolder(var itemPreviousInterviewBinding: ItemPreviousInterviewBinding) : RecyclerView.ViewHolder(itemPreviousInterviewBinding.root){
         fun bind(interview: Interview){
             itemPreviousInterviewBinding.interview = interview
+
+            itemPreviousInterviewBinding.ivArrowRight.setOnClickListener {
+                callback.onItemClicked()
+            }
         }
     }
 
@@ -31,4 +35,8 @@ class PreviousInterviewsAdapter(var data: List<Interview>)
     }
 
     override fun getItemCount() = data.size
+
+    interface OnItemClickListener {
+        fun onItemClicked()
+    }
 }

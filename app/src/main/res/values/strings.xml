@@ -6,6 +6,7 @@
     <string name="previous_interviews">Previous Interviews</string>
     <string name="feedback">Feedback</string>
     <string name="final_score">Final Score</string>
+    <string name="interview_details">Interview Details</string>
     <string name="click_for_details">Click for more details</string>
     <string name="no_previous_interviews">You have no interviews</string>
     <string name="tip_placeholder">Today’s Tip: Back up your answer with an example \nfrom your personal experience.</string>
@@ -23,6 +24,7 @@
     <string name="resume_recording">Resume Recording</string>
     <string name="submit">Submit</string>
     <string name="share">Share on social media</string>
+    <string name="your_answers">Your Answers</string>
 
     <string name="title_profile">Profile</string>
     <string name="title_settings">Settings</string>

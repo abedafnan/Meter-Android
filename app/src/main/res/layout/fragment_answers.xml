@@ -21,13 +21,29 @@
                 android:src="@drawable/header"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <FrameLayout
+                android:id="@+id/back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/regular"
+                android:background="@drawable/background_fill_white_radius"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow_left" />
+            </FrameLayout>
+
             <TextView
                 android:id="@+id/tv_header_title"
                 style="@style/TitleStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/xxlarge"
-                android:text="@string/final_score"
+                tools:text="Teamwork Answers"
                 app:layout_constraintBottom_toBottomOf="@id/iv_header"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -49,45 +65,59 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_header_title" />
 
             <TextView
-                android:id="@+id/tv_title_feedback"
+                android:id="@+id/tv_title_answer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/regular"
                 android:layout_marginTop="@dimen/regular"
                 android:fontFamily="@font/gt_america_regular"
-                android:text="@string/feedback"
+                android:text="@string/your_answers"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="@dimen/text_size_medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_header" />
 
-            <TextView
-                android:id="@+id/tv_share"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/regular"
-                android:layout_marginVertical="@dimen/small"
-                android:layout_marginBottom="@dimen/xxlarge"
-                android:drawableEnd="@drawable/ic_share_black_24dp"
-                android:drawablePadding="@dimen/small"
-                android:fontFamily="@font/gt_america_extended_medium"
-                android:text="@string/share"
-                android:textAlignment="center"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="@dimen/text_size_medium"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recycler_feedback" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_feedback"
+            <androidx.cardview.widget.CardView
+                app:layout_constraintTop_toBottomOf="@id/tv_title_answer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/regular"
-                app:layout_constraintTop_toBottomOf="@id/tv_title_feedback"
-                tools:itemCount="5"
-                tools:listitem="@layout/item_feedback" />
+                android:layout_marginBottom="@dimen/small"
+               android:layout_margin="@dimen/regular"
+                android:elevation="@dimen/cardview_default_elevation"
+                app:cardCornerRadius="@dimen/radius_background_small">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/regular">
+
+                    <TextView
+                        android:id="@+id/tv_question"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/regular"
+                        android:fontFamily="@font/gt_america_extended_medium"
+                        android:text="Why are you the best person for this job?"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/regular"
+                        android:layout_marginBottom="@dimen/regular"
+                        android:fontFamily="@font/gt_america_regular"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="@dimen/text_size_regular"
+                        app:layout_constraintTop_toBottomOf="@id/tv_question"
+                        tools:text="This is some feedback. This is some feedback. This is some feedback. This is some feedback. This is some feedback. " />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

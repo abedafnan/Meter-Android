@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBackgroundPrimary"
-        tools:context=".ui.home.HomeFragment">
+        tools:context=".ui.home.fragments.HomeFragment">
 
         <ImageView
             android:id="@+id/iv_header"
@@ -23,11 +23,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/regular"
+            android:text="Hi, Eman!"
             app:layout_constraintBottom_toBottomOf="@id/iv_header"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.33"
-            android:text="Hi, Eman!" />
+            app:layout_constraintVertical_bias="0.33" />
 
         <TextView
             android:id="@+id/tv_tip"
@@ -56,6 +56,7 @@
             app:layout_constraintTop_toBottomOf="@id/iv_header" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_previous_interview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/regular"
@@ -63,6 +64,25 @@
             app:layout_constraintTop_toBottomOf="@id/tv_previous_interviews"
             tools:itemCount="4"
             tools:listitem="@layout/item_previous_interview" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/nav_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBackgroundSecondary"
+            app:cardElevation="@dimen/regular"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                android:id="@+id/btn_start_interview"
+                style="@style/ButtonPrimaryStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/regular"
+                android:layout_marginVertical="@dimen/small"
+                android:layout_marginBottom="@dimen/xxlarge"
+                android:text="@string/start_interview" />
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

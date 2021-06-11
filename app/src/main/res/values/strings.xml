@@ -4,11 +4,25 @@
     <string name="greeting">Hi %s!</string>
     <string name="start_interview">Start Interview</string>
     <string name="previous_interviews">Previous Interviews</string>
+    <string name="feedback">Feedback</string>
+    <string name="final_score">Final Score</string>
     <string name="click_for_details">Click for more details</string>
     <string name="no_previous_interviews">You have no interviews</string>
     <string name="tip_placeholder">Today’s Tip: Back up your answer with an example \nfrom your personal experience.</string>
     <string name="title_activity_home">Home</string>
     <string name="title_home">Home</string>
+    <string name="instructions">Interview Instructions</string>
+    <string name="instructions_do_not_show">Don\'t show instructions again</string>
+    <string name="start">Start</string>
+    <string name="question">Question 1</string>
+    <string name="record_now">Record Now</string>
+    <string name="or">OR</string>
+    <string name="record_after">Your answer will be recorded after</string>
+    <string name="time_left">you still have 00:00 minutes</string>
+    <string name="remaining_time">Remaining Time</string>
+    <string name="resume_recording">Resume Recording</string>
+    <string name="submit">Submit</string>
+    <string name="share">Share on social media</string>
 
     <string name="title_profile">Profile</string>
     <string name="title_settings">Settings</string>

@@ -12,10 +12,6 @@ class PreviousInterviewsAdapter(var data: List<Interview>, val callback: OnItemC
     inner class PreviousInterviewsViewHolder(var itemPreviousInterviewBinding: ItemPreviousInterviewBinding) : RecyclerView.ViewHolder(itemPreviousInterviewBinding.root){
         fun bind(interview: Interview){
             itemPreviousInterviewBinding.interview = interview
-
-            itemPreviousInterviewBinding.ivArrowRight.setOnClickListener {
-                callback.onItemClicked()
-            }
         }
     }
 
@@ -30,7 +26,7 @@ class PreviousInterviewsAdapter(var data: List<Interview>, val callback: OnItemC
         holder.bind(round)
 
         holder.itemPreviousInterviewBinding.ivArrowRight.setOnClickListener {
-            //TODO: Open interview details
+           callback.onItemClicked()
         }
     }
 

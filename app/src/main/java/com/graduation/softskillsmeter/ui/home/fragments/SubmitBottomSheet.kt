@@ -36,10 +36,16 @@ class SubmitBottomSheet: BottomSheetDialogFragment() {
         }
 
         btn_submit.setOnClickListener {
+            if (questionNo?.let { it1 -> (it1 == 5) } == true) {
+                findNavController().navigate(R.id.action_submitBottomSheet_to_feedbackFragment)
+
+                return@setOnClickListener
+            }
+
             questionNo?.let {
                 val bundle = Bundle()
                 bundle.putInt("q_no", it)
-                findNavController().navigate(R.id.action_questionFragment_to_submitBottomSheet, bundle)
+                findNavController().navigate(R.id.action_submitBottomSheet_to_questionFragment, bundle)
             }
         }
     }

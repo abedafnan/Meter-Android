@@ -46,9 +46,6 @@
         <action
             android:id="@+id/action_questionFragment_to_submitBottomSheet"
             app:destination="@id/submitBottomSheet" />
-        <action
-            android:id="@+id/action_questionFragment_to_feedbackFragment"
-            app:destination="@id/feedbackFragment" />
     </fragment>
 
     <dialog
@@ -58,6 +55,9 @@
         <action
             android:id="@+id/action_submitBottomSheet_to_questionFragment"
             app:destination="@id/questionFragment" />
+        <action
+            android:id="@+id/action_submitBottomSheet_to_feedbackFragment"
+            app:destination="@id/feedbackFragment" />
     </dialog>
     <fragment
         android:id="@+id/feedbackFragment"

@@ -43,12 +43,6 @@ class QuestionFragment : Fragment() {
                 //TODO: Start Recording
                 viewModel.recordingStarted = true
             } else {
-                if (questionNo?.let { it1 -> (it1 == 4) } == true) {
-                    findNavController().navigate(R.id.action_questionFragment_to_feedbackFragment)
-
-                    return@setOnClickListener
-                }
-
                 questionNo?.let {
                     val bundle = Bundle()
                     bundle.putInt("q_no", it + 1)

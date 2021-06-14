@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorBackgroundPrimary"
+            tools:context=".ui.home.fragments.HomeFragment">
+
+            <ImageView
+                android:id="@+id/iv_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@drawable/header"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <FrameLayout
+                android:id="@+id/back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/regular"
+                android:background="@drawable/background_fill_white_radius"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow_left" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_header_title"
+                style="@style/TitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xxlarge"
+                tools:text="Teamwork Answers"
+                app:layout_constraintBottom_toBottomOf="@id/iv_header"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.33" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xlarge"
+                android:background="@drawable/background_border_white_radius"
+                android:fontFamily="@font/gt_america_extended_medium"
+                android:textColor="@color/colorPrimary"
+                android:padding="@dimen/regular"
+                android:text="9/10"
+                android:textSize="@dimen/text_size_large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_header_title" />
+
+            <TextView
+                android:id="@+id/tv_title_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/regular"
+                android:layout_marginTop="@dimen/regular"
+                android:fontFamily="@font/gt_america_regular"
+                android:text="@string/your_answers"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="@dimen/text_size_medium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_header" />
+
+            <androidx.cardview.widget.CardView
+                app:layout_constraintTop_toBottomOf="@id/tv_title_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/small"
+               android:layout_margin="@dimen/regular"
+                android:elevation="@dimen/cardview_default_elevation"
+                app:cardCornerRadius="@dimen/radius_background_small">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/regular">
+
+                    <TextView
+                        android:id="@+id/tv_question"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/regular"
+                        android:fontFamily="@font/gt_america_extended_medium"
+                        android:text="Why are you the best person for this job?"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_medium"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_feedback"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/regular"
+                        android:layout_marginBottom="@dimen/regular"
+                        android:fontFamily="@font/gt_america_regular"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="@dimen/text_size_regular"
+                        app:layout_constraintTop_toBottomOf="@id/tv_question"
+                        tools:text="This is some feedback. This is some feedback. This is some feedback. This is some feedback. This is some feedback. " />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

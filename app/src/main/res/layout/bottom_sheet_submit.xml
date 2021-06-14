@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_bottom_sheet"
+    android:orientation="vertical"
+    android:padding="@dimen/regular">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/regular"
+        android:fontFamily="@font/gt_america_medium"
+        android:text="@string/time_left"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/regular"
+        android:textColor="@color/white"
+        android:background="@drawable/background_border_primary_radius_large"
+        android:text="@string/submit"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_resume"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/regular"
+        android:layout_marginTop="@dimen/regular"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="@dimen/medium"
+        android:background="@drawable/background_fill_white_radius_medium"
+        android:text="@string/resume_recording"
+        android:textAllCaps="false" />
+
+</LinearLayout>

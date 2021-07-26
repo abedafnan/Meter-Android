@@ -6,6 +6,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.ktx.Firebase
 import com.graduation.softskillsmeter.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
@@ -20,6 +21,8 @@ class HomeActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
+
+//        val db = Firebase.firestore
 
         navView.setupWithNavController(navController)
     }

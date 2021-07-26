@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "974914655698",
+    "firebase_url": "https://soft-skills-app-d4e40-default-rtdb.firebaseio.com",
+    "project_id": "soft-skills-app-d4e40",
+    "storage_bucket": "soft-skills-app-d4e40.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:974914655698:android:dea6608406596dec44a40b",
+        "android_client_info": {
+          "package_name": "com.graduation.softskillsmeter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "974914655698-npkgugc0stvfgdbi1kr91mgurkf1le06.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmn5al5hwBMr5t0BoxT1MN81LGX_ntPgM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "974914655698-npkgugc0stvfgdbi1kr91mgurkf1le06.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

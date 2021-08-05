@@ -5,11 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.graduation.softskillsmeter.HomeActivity
 import com.graduation.softskillsmeter.R
 import com.graduation.softskillsmeter.databinding.FragmentLoginBinding
+import com.graduation.softskillsmeter.ui.auth.viewmodels.LoginViewModel
+import com.graduation.softskillsmeter.ui.auth.viewmodels.RegisterViewModel
+import com.graduation.softskillsmeter.utils.AESEncyption.encrypt
+import com.graduation.softskillsmeter.utils.ValidationUtils
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -28,6 +35,7 @@ class LoginFragment : Fragment() {
     private var param2: String? = null
 
     private lateinit var binding: FragmentLoginBinding
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +49,26 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false)
 
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+
+        viewModel.getLoginFinished().observe(viewLifecycleOwner) {
+            if (it) {
+                startActivity(Intent(requireActivity(), HomeActivity::class.java))
+                requireActivity().finish()
+            } else {
+                Toast.makeText(requireContext(), "Wrong email or password!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         binding.btnLogin.setOnClickListener {
-            startActivity(Intent(requireActivity(), HomeActivity::class.java))
-            requireActivity().finish()
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPass.text.toString()
+
+            if (ValidationUtils.validateSignIn(requireContext(), email, password)) {
+                viewModel.onLoginTapped(email, password)
+            }
         }
 
         binding.tvHeaderTitle.setOnClickListener {

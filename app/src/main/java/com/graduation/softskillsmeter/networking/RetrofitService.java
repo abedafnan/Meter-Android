@@ -1,11 +1,14 @@
 package com.graduation.softskillsmeter.networking;
 
 import com.graduation.softskillsmeter.models.FeedbackResponse;
+import com.graduation.softskillsmeter.models.InterviewsResponse;
 import com.graduation.softskillsmeter.models.QuestionsResponse;
+import com.graduation.softskillsmeter.models.requests.InterviewsRequest;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -16,7 +19,7 @@ public interface RetrofitService {
     Call<QuestionsResponse> getQuestions();
 
     @POST("interviews")
-    Call<QuestionsResponse> getInterviews(); //TODO
+    Call<InterviewsResponse> getInterviews(@Body InterviewsRequest request);
 
     @FormUrlEncoded
     @POST("feedbacks")

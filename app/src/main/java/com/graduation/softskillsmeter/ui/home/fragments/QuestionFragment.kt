@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -13,25 +14,25 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.graduation.softskillsmeter.R
 import com.graduation.softskillsmeter.databinding.FragmentQuestionBinding
+import com.graduation.softskillsmeter.ui.home.states.RequestState
 import com.graduation.softskillsmeter.ui.home.viewmodels.QuestionViewModel
+import kotlinx.android.synthetic.main.fragment_question.*
 
 class QuestionFragment : Fragment() {
 
     private lateinit var binding: FragmentQuestionBinding
     private lateinit var viewModel: QuestionViewModel
-    private var questionNo: Int? = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel =
-            ViewModelProvider(this).get(QuestionViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(QuestionViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_question, container, false)
 
         if (arguments != null) {
-            questionNo = arguments?.getInt("q_no")
+            viewModel.questionNo = arguments?.getInt("q_no")!!
         }
 
         fillQuestionProgress()
@@ -43,12 +44,33 @@ class QuestionFragment : Fragment() {
                 //TODO: Start Recording
                 viewModel.recordingStarted = true
             } else {
-                questionNo?.let {
+                viewModel.questionNo.let {
                     val bundle = Bundle()
                     bundle.putInt("q_no", it + 1)
                     findNavController().navigate(R.id.action_questionFragment_to_submitBottomSheet, bundle)
                 }
             }
+        }
+
+        viewModel.requestState.observe(viewLifecycleOwner) {
+            when(it) {
+                RequestState.NOT_STARTED -> TODO()
+                RequestState.LOADING ->  {
+                    binding.tvQuestion.text = ""
+                    binding.progressbar.visibility = View.VISIBLE
+                }
+                RequestState.SUCCESS -> {
+                    binding.progressbar.visibility = View.GONE
+                }
+                RequestState.FAIL -> {
+                    binding.progressbar.visibility = View.GONE
+                    Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        viewModel.question.observe(viewLifecycleOwner) {
+            binding.tvQuestion.text = it
         }
 
         return binding.root
@@ -71,7 +93,7 @@ class QuestionFragment : Fragment() {
     }
 
     private fun setHeaderTitle() {
-        when(questionNo) {
+        when(viewModel.questionNo) {
             2 -> binding.tvHeaderTitle.text = "Question 2"
             3 -> binding.tvHeaderTitle.text = "Question 3"
             4 -> binding.tvHeaderTitle.text = "Question 4"
@@ -79,7 +101,7 @@ class QuestionFragment : Fragment() {
     }
 
     private fun fillQuestionProgress() {
-        when(questionNo) {
+        when(viewModel.questionNo) {
             2 -> {
                 ViewCompat.setBackgroundTintList(
                     binding.fill1,

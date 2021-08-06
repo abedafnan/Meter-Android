@@ -27,7 +27,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{Double.toString(interview.score)}"
             android:textColor="@color/colorPrimary"
             tools:text="9/10" />
 
@@ -57,7 +56,7 @@
                 android:fontFamily="@font/gt_america_medium"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="@dimen/text_size_small"
-                android:text="@{interview.date}"
+                android:text="@{interview.dateTime}"
                 tools:text="22nd January, 2021" />
 
             <TextView

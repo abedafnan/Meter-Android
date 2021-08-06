@@ -13,15 +13,13 @@ class InstructionsViewModel : ViewModel() {
     init {
         // Placeholder
         val list = ArrayList<Instruction>()
-        list.add(Instruction(1, "This is instruction text"))
-        list.add(Instruction(2, "This is instruction text"))
-        list.add(Instruction(3, "This is instruction text"))
-        list.add(Instruction(4, "This is instruction text"))
-        list.add(Instruction(5, "This is instruction text"))
-        list.add(Instruction(6, "This is instruction text"))
-        list.add(Instruction(7, "This is instruction text"))
-        list.add(Instruction(8, "This is instruction text"))
-        list.add(Instruction(9, "This is instruction text"))
+        list.add(Instruction(1, "The display of questions is sequential, the user cannot return to the question again."))
+        list.add(Instruction(2, "It is not possible to re-record again."))
+        list.add(Instruction(3, "There is a set time for each question"))
+        list.add(Instruction(4, "The answers are in English language only."))
+        list.add(Instruction(5, "Make sure your microphone is working properly"))
+        list.add(Instruction(6, "Make sure you're in a quite environment and your voice is clear."))
+        list.add(Instruction(7, "Please do not use outside assistance."))
 
         _instructionsList.value = list
     }

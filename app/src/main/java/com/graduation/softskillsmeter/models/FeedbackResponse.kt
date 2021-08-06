@@ -1,5 +1,8 @@
 package com.graduation.softskillsmeter.models
 
+import com.google.gson.annotations.SerializedName
+
 data class FeedbackResponse(
-    val `0`: Interview2
+    @SerializedName("0")
+    val interview: Interview
 )

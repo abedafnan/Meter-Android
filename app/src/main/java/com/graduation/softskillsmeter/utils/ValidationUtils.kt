@@ -26,14 +26,15 @@ object ValidationUtils {
         return !TextUtils.isEmpty(password) && password.length >= 6
     }
 
-    private fun isValidName(first: String, last: String): Boolean {
+    private fun areValidNames(first: String, last: String): Boolean {
         val p: Pattern = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE)
-        val m: Matcher = p.matcher("I am a string")
-        val containsSpecialChars: Boolean = m.find()
+        val m: Matcher = p.matcher(first)
+        val m2: Matcher = p.matcher(last)
 
         return first.isNotEmpty()
                 && last.isNotEmpty()
-                && !containsSpecialChars
+                && !m.find()
+                && !m2.find()
     }
 
     fun validateSignIn(context: Context, email: String, password: String): Boolean {
@@ -51,7 +52,7 @@ object ValidationUtils {
 
     fun validateSignUp(context: Context, email: String, password: String,
                        firstName: String, lastName: String, confirmPassword: String) : Boolean {
-        if (!isValidName(firstName, lastName)) {
+        if (!areValidNames(firstName, lastName)) {
             Toast.makeText(context, "Enter valid first and last names", Toast.LENGTH_SHORT).show()
             return false
         }

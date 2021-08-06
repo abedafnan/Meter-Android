@@ -7,14 +7,19 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.graduation.softskillsmeter.app.AppController
 import com.graduation.softskillsmeter.utils.AESEncyption.encrypt
+import com.graduation.softskillsmeter.utils.SharedPreferenceUtils
 
 
 class LoginViewModel: ViewModel() {
     private var db: FirebaseFirestore = Firebase.firestore
     private val _loginFinished: MutableLiveData<Boolean> = MutableLiveData()
+    private val _userId: MutableLiveData<String> = MutableLiveData()
 
     fun getLoginFinished(): MutableLiveData<Boolean> = _loginFinished
+
+    fun getUserId(): MutableLiveData<String> = _userId
 
     init {
         db = Firebase.firestore
@@ -31,6 +36,9 @@ class LoginViewModel: ViewModel() {
                 for (document in task.result!!) {
                     if (document.exists()) {
                         Log.d(TAG, "Email exists")
+
+                        _userId.value = document.id
+                        Log.d(TAG, document.id)
 
                         if (encryptedPassword != null) {
                             lookForPassword(encryptedPassword)

@@ -1,8 +1,14 @@
 package com.graduation.softskillsmeter.models
 
+import com.google.gson.annotations.SerializedName
+
 data class QuestionsResponse(
-    val `1`: String,
-    val `2`: String,
-    val `3`: String,
-    val `4`: String
+    @SerializedName("1")
+    val first: String,
+    @SerializedName("2")
+    val second: String,
+    @SerializedName("3")
+    val third: String,
+    @SerializedName("4")
+    val fourth: String
 )

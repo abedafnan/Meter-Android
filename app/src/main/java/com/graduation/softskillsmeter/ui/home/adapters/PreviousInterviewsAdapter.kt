@@ -12,11 +12,21 @@ class PreviousInterviewsAdapter(var data: List<Interview>, val callback: OnItemC
     inner class PreviousInterviewsViewHolder(var itemPreviousInterviewBinding: ItemPreviousInterviewBinding) : RecyclerView.ViewHolder(itemPreviousInterviewBinding.root){
         fun bind(interview: Interview){
             itemPreviousInterviewBinding.interview = interview
+
+            var score = interview.score
+
+            if (score < 1.0) {
+                score *= 10
+            }
+
+            val formattedScore = String.format("%.1f", score)
+            itemPreviousInterviewBinding.tvScore.text = formattedScore
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PreviousInterviewsViewHolder {
         val binding = ItemPreviousInterviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
         return PreviousInterviewsViewHolder(binding)
     }
 

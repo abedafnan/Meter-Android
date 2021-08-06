@@ -3,6 +3,7 @@ package com.graduation.softskillsmeter.networking
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 class RetrofitClient {
     companion object{
@@ -17,6 +18,10 @@ class RetrofitClient {
 
                 chain.proceed(request)
             }
+
+            httpOk
+                .readTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(60, TimeUnit.SECONDS)
 
             return Retrofit.Builder()
                 .baseUrl(baseUrl)

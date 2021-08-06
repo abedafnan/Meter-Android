@@ -16,6 +16,7 @@ import com.graduation.softskillsmeter.databinding.FragmentLoginBinding
 import com.graduation.softskillsmeter.ui.auth.viewmodels.LoginViewModel
 import com.graduation.softskillsmeter.ui.auth.viewmodels.RegisterViewModel
 import com.graduation.softskillsmeter.utils.AESEncyption.encrypt
+import com.graduation.softskillsmeter.utils.SharedPreferenceUtils
 import com.graduation.softskillsmeter.utils.ValidationUtils
 
 
@@ -52,6 +53,10 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+
+        viewModel.getUserId().observe(viewLifecycleOwner) {
+            SharedPreferenceUtils.getInstance(requireContext()).userId = it
+        }
 
         viewModel.getLoginFinished().observe(viewLifecycleOwner) {
             if (it) {

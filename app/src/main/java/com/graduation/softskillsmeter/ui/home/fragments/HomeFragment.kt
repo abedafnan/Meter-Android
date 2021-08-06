@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +17,8 @@ import com.graduation.softskillsmeter.R
 import com.graduation.softskillsmeter.databinding.FragmentHomeBinding
 import com.graduation.softskillsmeter.ui.home.viewmodels.HomeViewModel
 import com.graduation.softskillsmeter.ui.home.adapters.PreviousInterviewsAdapter
+import com.graduation.softskillsmeter.ui.home.states.RequestState
+import com.graduation.softskillsmeter.utils.SharedPreferenceUtils
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -39,12 +42,31 @@ class HomeFragment : Fragment(), PreviousInterviewsAdapter.OnItemClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_instructionsFragment)
         }
 
+        val userId = SharedPreferenceUtils.getInstance(requireContext()).userId
+        homeViewModel.getInterviews(userId)
+
         homeViewModel.previousInterviewsList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 val adapter = PreviousInterviewsAdapter(it, this)
                 binding.recyclerPreviousInterview.layoutManager =
                     LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 binding.recyclerPreviousInterview.adapter = adapter
+            }
+        }
+
+        homeViewModel.requestState.observe(viewLifecycleOwner) {
+            when(it) {
+                RequestState.NOT_STARTED -> TODO()
+                RequestState.LOADING ->  {
+                    binding.progressbar.visibility = View.VISIBLE
+                }
+                RequestState.SUCCESS -> {
+                    binding.progressbar.visibility = View.GONE
+                }
+                RequestState.FAIL -> {
+                    binding.progressbar.visibility = View.GONE
+                    Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

@@ -13,8 +13,6 @@ import com.graduation.softskillsmeter.HomeActivity
 import com.graduation.softskillsmeter.R
 import com.graduation.softskillsmeter.databinding.FragmentInterviewInstructionsBinding
 import com.graduation.softskillsmeter.ui.home.adapters.InstructionsAdapter
-import com.graduation.softskillsmeter.ui.home.viewmodels.HomeViewModel
-import com.graduation.softskillsmeter.ui.home.adapters.PreviousInterviewsAdapter
 import com.graduation.softskillsmeter.ui.home.viewmodels.InstructionsViewModel
 
 class InstructionsFragment : Fragment() {

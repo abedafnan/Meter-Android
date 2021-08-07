@@ -2,6 +2,7 @@ package com.graduation.softskillsmeter.ui.home.fragments
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +17,11 @@ import com.graduation.softskillsmeter.databinding.FragmentQuestionBinding
 import com.graduation.softskillsmeter.ui.home.viewmodels.QuestionViewModel
 
 class QuestionFragment : Fragment() {
-
     private lateinit var binding: FragmentQuestionBinding
     private lateinit var viewModel: QuestionViewModel
     private var questionNo: Int? = 1
+    private lateinit var recordCountDownTimer: CountDownTimer
+    private lateinit var questionCountDownTimer: CountDownTimer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,12 +38,11 @@ class QuestionFragment : Fragment() {
 
         fillQuestionProgress()
         setHeaderTitle()
+        startCountDown()
 
         binding.btnRecord.setOnClickListener {
             if (!viewModel.recordingStarted) {
-                changeViews()
-                //TODO: Start Recording
-                viewModel.recordingStarted = true
+                startRecording()
             } else {
                 questionNo?.let {
                     val bundle = Bundle()
@@ -62,6 +63,45 @@ class QuestionFragment : Fragment() {
         this.requireView().setOnKeyListener { _, keyCode, _ ->
             keyCode == KeyEvent.KEYCODE_BACK
         }
+    }
+
+    private fun startCountDown() {
+        recordCountDownTimer = object : CountDownTimer(15000, 1000) {
+
+            override fun onTick(millisUntilFinished: Long) {
+                binding.tvCountDown.text = ("${millisUntilFinished / 1000}")
+            }
+
+            override fun onFinish() {
+                startRecording()
+            }
+        }.start()
+    }
+
+    private fun startRecording() {
+        changeViews()
+
+        questionCountDownTimer = object : CountDownTimer((3 * 60 * 1000), 1000) {
+
+            override fun onTick(millisUntilFinished: Long) {
+                var seconds = (millisUntilFinished / 1000)
+                val minutes = seconds / 60
+                seconds %= 60
+
+                binding.tvCountDown.text = (String.format("%d:%02d", minutes, seconds))
+            }
+
+            override fun onFinish() {
+                questionNo?.let {
+                    val bundle = Bundle()
+                    bundle.putInt("q_no", it + 1)
+                    findNavController().navigate(R.id.action_questionFragment_self, bundle)
+                }
+            }
+        }.start()
+
+        // TODO: Start Recording
+        viewModel.recordingStarted = true
     }
 
     private fun changeViews() {

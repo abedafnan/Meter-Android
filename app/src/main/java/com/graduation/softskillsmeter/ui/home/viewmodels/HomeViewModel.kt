@@ -3,14 +3,12 @@ package com.graduation.softskillsmeter.ui.home.viewmodels
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.graduation.softskillsmeter.app.AppController
 import com.graduation.softskillsmeter.models.Interview
-import com.graduation.softskillsmeter.models.InterviewsResponse
+import com.graduation.softskillsmeter.models.responses.InterviewsResponse
 import com.graduation.softskillsmeter.models.requests.InterviewsRequest
 import com.graduation.softskillsmeter.networking.RetrofitClient
 import com.graduation.softskillsmeter.networking.RetrofitService
 import com.graduation.softskillsmeter.ui.home.states.RequestState
-import com.graduation.softskillsmeter.utils.SharedPreferenceUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

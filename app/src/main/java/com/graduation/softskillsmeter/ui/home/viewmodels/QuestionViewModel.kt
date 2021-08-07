@@ -3,7 +3,7 @@ package com.graduation.softskillsmeter.ui.home.viewmodels
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.graduation.softskillsmeter.models.QuestionsResponse
+import com.graduation.softskillsmeter.models.responses.QuestionsResponse
 import com.graduation.softskillsmeter.networking.RetrofitClient
 import com.graduation.softskillsmeter.networking.RetrofitService
 import com.graduation.softskillsmeter.ui.home.states.RequestState

@@ -1,16 +1,15 @@
 package com.graduation.softskillsmeter.networking;
 
-import com.graduation.softskillsmeter.models.FeedbackResponse;
-import com.graduation.softskillsmeter.models.InterviewsResponse;
-import com.graduation.softskillsmeter.models.QuestionsResponse;
+import com.graduation.softskillsmeter.models.requests.FeedbackRequest;
+import com.graduation.softskillsmeter.models.responses.FeedbackResponse;
+import com.graduation.softskillsmeter.models.responses.InterviewIdResponse;
+import com.graduation.softskillsmeter.models.responses.InterviewsResponse;
+import com.graduation.softskillsmeter.models.responses.QuestionsResponse;
+import com.graduation.softskillsmeter.models.requests.InterviewIdRequest;
 import com.graduation.softskillsmeter.models.requests.InterviewsRequest;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 public interface RetrofitService {
@@ -21,14 +20,9 @@ public interface RetrofitService {
     @POST("interviews")
     Call<InterviewsResponse> getInterviews(@Body InterviewsRequest request);
 
-    @FormUrlEncoded
     @POST("feedbacks")
-    Call<QuestionsResponse> getInterviewId(@Field("user_id") String userId,
-                                           @Field("questions_ids") List<Integer> questionIdsList,
-                                           @Field("answers") List<String> answersList,
-                                           @Field("date_time") String dateTime); //TODO
+    Call<InterviewIdResponse> getInterviewId(@Body InterviewIdRequest request);
 
-    @FormUrlEncoded
     @POST("interview")
-    Call<FeedbackResponse> getInterviewFeedback(@Field("interview_id") String interviewId);
+    Call<FeedbackResponse> getInterviewFeedback(@Body FeedbackRequest request);
 }

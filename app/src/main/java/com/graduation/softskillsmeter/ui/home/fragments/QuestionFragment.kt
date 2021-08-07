@@ -54,7 +54,8 @@ class QuestionFragment : Fragment() {
 
         viewModel.requestState.observe(viewLifecycleOwner) {
             when(it) {
-                RequestState.NOT_STARTED -> TODO()
+                RequestState.NOT_STARTED -> {
+                }
                 RequestState.LOADING ->  {
                     binding.tvQuestion.text = ""
                     binding.progressbar.visibility = View.VISIBLE

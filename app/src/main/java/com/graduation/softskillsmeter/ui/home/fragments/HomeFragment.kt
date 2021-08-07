@@ -56,7 +56,8 @@ class HomeFragment : Fragment(), PreviousInterviewsAdapter.OnItemClickListener {
 
         homeViewModel.requestState.observe(viewLifecycleOwner) {
             when(it) {
-                RequestState.NOT_STARTED -> TODO()
+                RequestState.NOT_STARTED -> {
+                }
                 RequestState.LOADING ->  {
                     binding.progressbar.visibility = View.VISIBLE
                 }

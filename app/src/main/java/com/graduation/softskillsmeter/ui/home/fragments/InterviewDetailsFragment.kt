@@ -8,14 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.graduation.softskillsmeter.HomeActivity
 import com.graduation.softskillsmeter.R
 import com.graduation.softskillsmeter.databinding.FragmentInterviewDetailsBinding
-import com.graduation.softskillsmeter.ui.home.adapters.FeedbackAdapter
 import com.graduation.softskillsmeter.ui.home.viewmodels.FeedbackViewModel
 
-class InterviewDetailsFragment : Fragment(), FeedbackAdapter.OnItemClickListener {
+class InterviewDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentInterviewDetailsBinding
     private lateinit var feedbackViewModel: FeedbackViewModel
@@ -31,13 +29,13 @@ class InterviewDetailsFragment : Fragment(), FeedbackAdapter.OnItemClickListener
 
         (activity as HomeActivity).showNavView(false)
 
-        feedbackViewModel.feedbackList.observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
-                val adapter = FeedbackAdapter(it, true, this)
-                binding.recyclerFeedback.layoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                binding.recyclerFeedback.adapter = adapter
-            }
+        feedbackViewModel.feedback.observe(viewLifecycleOwner) {
+//            if (it.isNotEmpty()) {
+//                val adapter = FeedbackAdapter(it, true, this)
+//                binding.recyclerFeedback.layoutManager =
+//                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//                binding.recyclerFeedback.adapter = adapter
+//            }
         }
 
         binding.back.setOnClickListener {
@@ -47,7 +45,7 @@ class InterviewDetailsFragment : Fragment(), FeedbackAdapter.OnItemClickListener
         return binding.root
     }
 
-    override fun onItemClicked() {
-        findNavController().navigate(R.id.action_interviewDetailsFragment_to_answersFragment)
-    }
+//    override fun onItemClicked() {
+//        findNavController().navigate(R.id.action_interviewDetailsFragment_to_answersFragment)
+//    }
 }

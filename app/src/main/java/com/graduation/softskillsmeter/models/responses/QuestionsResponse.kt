@@ -1,4 +1,4 @@
-package com.graduation.softskillsmeter.models
+package com.graduation.softskillsmeter.models.responses
 
 import com.google.gson.annotations.SerializedName
 

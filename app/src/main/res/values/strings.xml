@@ -19,7 +19,7 @@
     <string name="record_now">Record Now</string>
     <string name="or">OR</string>
     <string name="record_after">Your answer will be recorded after</string>
-    <string name="time_left">you still have 00:00 minutes</string>
+    <string name="time_left">you still have %s minutes</string>
     <string name="remaining_time">Remaining Time</string>
     <string name="resume_recording">Resume Recording</string>
     <string name="submit">Submit</string>

@@ -1,6 +1,6 @@
 package com.graduation.softskillsmeter.models.requests
 
-class InterviewIdRequest(
+data class InterviewIdRequest(
     var user_id: String,
     var questions_ids: List<Int>,
     var answers: List<String>,

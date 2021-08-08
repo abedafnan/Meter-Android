@@ -1,12 +1,20 @@
 package com.graduation.softskillsmeter.ui.home.fragments
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.speech.RecognizerIntent
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,12 +24,16 @@ import com.graduation.softskillsmeter.R
 import com.graduation.softskillsmeter.databinding.FragmentQuestionBinding
 import com.graduation.softskillsmeter.ui.home.states.RequestState
 import com.graduation.softskillsmeter.ui.home.viewmodels.QuestionViewModel
-import kotlinx.android.synthetic.main.fragment_question.*
+import com.graduation.softskillsmeter.utils.SharedPreferenceUtils
 
 class QuestionFragment : Fragment() {
 
     private lateinit var binding: FragmentQuestionBinding
     private lateinit var viewModel: QuestionViewModel
+    private lateinit var recordCountDownTimer: CountDownTimer
+    private lateinit var questionCountDownTimer: CountDownTimer
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+    private var remainingTime: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,14 +51,15 @@ class QuestionFragment : Fragment() {
         setHeaderTitle()
 
         binding.btnRecord.setOnClickListener {
+            recordCountDownTimer.cancel()
+
             if (!viewModel.recordingStarted) {
-                changeViews()
-                //TODO: Start Recording
-                viewModel.recordingStarted = true
+                startRecording()
             } else {
                 viewModel.questionNo.let {
                     val bundle = Bundle()
                     bundle.putInt("q_no", it + 1)
+                    bundle.putLong("remaining", remainingTime)
                     findNavController().navigate(R.id.action_questionFragment_to_submitBottomSheet, bundle)
                 }
             }
@@ -72,6 +85,22 @@ class QuestionFragment : Fragment() {
 
         viewModel.question.observe(viewLifecycleOwner) {
             binding.tvQuestion.text = it
+            startCountDown()
+        }
+
+        resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+
+                val data: Intent? = result.data
+                data?.let {
+                    val result = it.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                    if (result != null) {
+                        for (item in result) {
+                            setAnswer(item)
+                        }
+                    }
+                }
+            }
         }
 
         return binding.root
@@ -87,10 +116,62 @@ class QuestionFragment : Fragment() {
         }
     }
 
+    private fun startCountDown() {
+        recordCountDownTimer = object : CountDownTimer(15000, 1000) {
+
+            override fun onTick(millisUntilFinished: Long) {
+                binding.tvCountDown.text = ("${millisUntilFinished / 1000}")
+            }
+
+            override fun onFinish() {
+                startRecording()
+            }
+        }.start()
+    }
+
+    private fun startRecording() {
+        changeViews()
+
+        questionCountDownTimer = object : CountDownTimer((3 * 60 * 1000), 1000) {
+
+            override fun onTick(millisUntilFinished: Long) {
+                remainingTime = millisUntilFinished
+
+                var seconds = (millisUntilFinished / 1000)
+                val minutes = seconds / 60
+                seconds %= 60
+
+                binding.tvCountDown.text = (String.format("%d:%02d", minutes, seconds))
+            }
+
+            override fun onFinish() {
+                viewModel.questionNo.let {
+                    val bundle = Bundle()
+                    bundle.putInt("q_no", it + 1)
+                    findNavController().navigate(R.id.action_questionFragment_self, bundle)
+                }
+            }
+        }.start()
+
+        startRecordingIntent()
+        viewModel.recordingStarted = true
+    }
+
+    private fun startRecordingIntent() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+
+        try {
+            resultLauncher.launch(intent)
+        } catch (a: ActivityNotFoundException) {
+            Log.e("testing", "Intent activity not found")
+        }
+    }
+
     private fun changeViews() {
         binding.btnRecord.text = getString(R.string.submit)
         binding.tvRecordedAfter.text = getString(R.string.remaining_time)
         binding.tvOr.visibility = View.GONE
+        binding.layoutRecording.visibility = View.VISIBLE
     }
 
     private fun setHeaderTitle() {
@@ -98,6 +179,17 @@ class QuestionFragment : Fragment() {
             2 -> binding.tvHeaderTitle.text = "Question 2"
             3 -> binding.tvHeaderTitle.text = "Question 3"
             4 -> binding.tvHeaderTitle.text = "Question 4"
+        }
+    }
+
+    private fun setAnswer(answer: String) {
+        Log.d("answers", answer)
+        val sp = SharedPreferenceUtils.getInstance(requireContext())
+        when(viewModel.questionNo) {
+            1 -> sp.setAnswer1(answer)
+            2 -> sp.setAnswer2(answer)
+            3 -> sp.setAnswer3(answer)
+            4 -> sp.setAnswer4(answer)
         }
     }
 

@@ -1,3 +1,3 @@
 package com.graduation.softskillsmeter.models.requests
 
-class FeedbackRequest(var interview_id: String)
+data class FeedbackRequest(var interview_id: String)

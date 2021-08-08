@@ -42,12 +42,12 @@
                 android:background="@drawable/background_border_white_radius"
                 android:fontFamily="@font/gt_america_extended_medium"
                 android:padding="@dimen/regular"
-                android:text="9/10"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size_large"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_header_title" />
+                app:layout_constraintTop_toBottomOf="@id/tv_header_title"
+                tools:text="9/10" />
 
             <TextView
                 android:id="@+id/tv_title_feedback"
@@ -97,6 +97,8 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/regular"
                     android:visibility="gone" />
+
+                problemSolving
 
                 <include
                     android:id="@+id/communication"

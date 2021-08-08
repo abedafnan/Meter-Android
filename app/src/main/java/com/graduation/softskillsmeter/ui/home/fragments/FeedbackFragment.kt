@@ -15,6 +15,7 @@ import com.graduation.softskillsmeter.models.Interview
 import com.graduation.softskillsmeter.models.requests.InterviewIdRequest
 import com.graduation.softskillsmeter.ui.home.states.RequestState
 import com.graduation.softskillsmeter.ui.home.viewmodels.FeedbackViewModel
+import com.graduation.softskillsmeter.utils.SharedPreferenceUtils
 
 class FeedbackFragment : Fragment() {
 
@@ -31,18 +32,17 @@ class FeedbackFragment : Fragment() {
 
         (activity as HomeActivity).showNavView(true)
 
-        // TODO: replace with real data
         val qids = ArrayList<Int>()
         qids.add(1)
         qids.add(2)
         qids.add(3)
         qids.add(4)
-        val answers = ArrayList<String>()
-        answers.add("answer")
-        answers.add("answer")
-        answers.add("answer")
-        answers.add("answer")
-        val request = InterviewIdRequest("7lV4Dh1Ulk2vbYQwU1nL", qids, answers, "6-8-2021")
+
+        val sp = SharedPreferenceUtils.getInstance(requireContext())
+        val userId = sp.userId
+        val answers = sp.answers
+
+        val request = InterviewIdRequest(userId, qids, answers, "7-8-2021")
 
         feedbackViewModel.getInterviewId(request)
 
@@ -93,21 +93,21 @@ class FeedbackFragment : Fragment() {
 
     private fun updateGrowthMindset(feedback: String) {
         binding.growthMindset.root.visibility = View.VISIBLE
-        binding.communication.tvSkillName.text = "Growth Mindset"
+        binding.growthMindset.tvSkillName.text = "Growth Mindset"
         binding.growthMindset.tvFeedback.text = feedback
         binding.growthMindset.tvViewQuestion.visibility = View.GONE
     }
 
     private fun updateProblemSolving(feedback: String) {
         binding.problemSolving.root.visibility = View.VISIBLE
-        binding.communication.tvSkillName.text = "Problem Solving"
+        binding.problemSolving.tvSkillName.text = "Problem Solving"
         binding.problemSolving.tvFeedback.text = feedback
         binding.problemSolving.tvViewQuestion.visibility = View.GONE
     }
 
     private fun updateTeamWork(feedback: String) {
         binding.teamwork.root.visibility = View.VISIBLE
-        binding.communication.tvSkillName.text = "Teamwork"
+        binding.teamwork.tvSkillName.text = "Teamwork"
         binding.teamwork.tvFeedback.text = feedback
         binding.teamwork.tvViewQuestion.visibility = View.GONE
     }

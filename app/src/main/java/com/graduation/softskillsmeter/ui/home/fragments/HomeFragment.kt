@@ -9,23 +9,23 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.graduation.softskillsmeter.HomeActivity
 import com.graduation.softskillsmeter.R
 import com.graduation.softskillsmeter.databinding.FragmentHomeBinding
+import com.graduation.softskillsmeter.models.Interview
 import com.graduation.softskillsmeter.ui.home.viewmodels.HomeViewModel
 import com.graduation.softskillsmeter.ui.home.adapters.PreviousInterviewsAdapter
 import com.graduation.softskillsmeter.ui.home.states.RequestState
 import com.graduation.softskillsmeter.utils.SharedPreferenceUtils
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 
 class HomeFragment : Fragment(), PreviousInterviewsAdapter.OnItemClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var homeViewModel: HomeViewModel
+    private var interviews: List<Interview>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,23 +42,30 @@ class HomeFragment : Fragment(), PreviousInterviewsAdapter.OnItemClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_instructionsFragment)
         }
 
+        val username = SharedPreferenceUtils.getInstance(requireContext()).userName
+        binding.tvGreeting.text = "Hi, $username!"
         val userId = SharedPreferenceUtils.getInstance(requireContext()).userId
         homeViewModel.getInterviews(userId)
 
         homeViewModel.previousInterviewsList.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
+                binding.emptyView.visibility = View.GONE
+                interviews = it
+
                 val adapter = PreviousInterviewsAdapter(it, this)
                 binding.recyclerPreviousInterview.layoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
                 binding.recyclerPreviousInterview.adapter = adapter
+            } else {
+                binding.emptyView.visibility = View.VISIBLE
             }
         }
 
         homeViewModel.requestState.observe(viewLifecycleOwner) {
-            when(it) {
+            when (it) {
                 RequestState.NOT_STARTED -> {
                 }
-                RequestState.LOADING ->  {
+                RequestState.LOADING -> {
                     binding.progressbar.visibility = View.VISIBLE
                 }
                 RequestState.SUCCESS -> {
@@ -66,7 +73,8 @@ class HomeFragment : Fragment(), PreviousInterviewsAdapter.OnItemClickListener {
                 }
                 RequestState.FAIL -> {
                     binding.progressbar.visibility = View.GONE
-                    Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Something went wrong", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
@@ -74,8 +82,13 @@ class HomeFragment : Fragment(), PreviousInterviewsAdapter.OnItemClickListener {
         return binding.root
     }
 
-    override fun onItemClicked() {
-        Log.d("testing", "clicked")
-        findNavController().navigate(R.id.action_navigation_home_to_interviewDetailsFragment)
+    override fun onItemClicked(position: Int) {
+        if (!interviews.isNullOrEmpty()) {
+            val interview: Interview = interviews!![position]
+            val bundle = Bundle()
+            bundle.putParcelable("interview", interview)
+
+            findNavController().navigate(R.id.action_navigation_home_to_interviewDetailsFragment, bundle)
+        }
     }
 }

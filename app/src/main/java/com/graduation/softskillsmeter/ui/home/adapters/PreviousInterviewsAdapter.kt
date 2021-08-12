@@ -36,13 +36,13 @@ class PreviousInterviewsAdapter(var data: List<Interview>, val callback: OnItemC
         holder.bind(round)
 
         holder.itemPreviousInterviewBinding.ivArrowRight.setOnClickListener {
-           callback.onItemClicked()
+           callback.onItemClicked(position)
         }
     }
 
     override fun getItemCount() = data.size
 
     interface OnItemClickListener {
-        fun onItemClicked()
+        fun onItemClicked(position: Int)
     }
 }

@@ -98,8 +98,6 @@
                     android:layout_marginStart="@dimen/regular"
                     android:visibility="gone" />
 
-                problemSolving
-
                 <include
                     android:id="@+id/communication"
                     layout="@layout/item_feedback"

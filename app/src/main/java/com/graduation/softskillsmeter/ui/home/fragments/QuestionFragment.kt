@@ -34,6 +34,8 @@ class QuestionFragment : Fragment() {
     private lateinit var questionCountDownTimer: CountDownTimer
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private var remainingTime: Long = 0
+    private lateinit var answer: String
+    private var submitted: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,6 +62,7 @@ class QuestionFragment : Fragment() {
                     val bundle = Bundle()
                     bundle.putInt("q_no", it + 1)
                     bundle.putLong("remaining", remainingTime)
+                    submitted = true
                     findNavController().navigate(R.id.action_questionFragment_to_submitBottomSheet, bundle)
                 }
             }
@@ -88,6 +91,8 @@ class QuestionFragment : Fragment() {
             startCountDown()
         }
 
+        submitted = false
+        answer = ""
         resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
 
@@ -109,10 +114,24 @@ class QuestionFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        if (submitted) {
+//            startRecordingIntent()
+        }
+
         this.requireView().isFocusableInTouchMode = true
         this.requireView().requestFocus()
         this.requireView().setOnKeyListener { _, keyCode, _ ->
             keyCode == KeyEvent.KEYCODE_BACK
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        // FIXME: Continue if user doesn't submit
+        if (viewModel.questionNo == 4) {
+            questionCountDownTimer.cancel()
+            Log.d("testing", "timer cancelled")
         }
     }
 
@@ -183,7 +202,7 @@ class QuestionFragment : Fragment() {
     }
 
     private fun setAnswer(answer: String) {
-        Log.d("answers", answer)
+        this.answer += answer
         val sp = SharedPreferenceUtils.getInstance(requireContext())
         when(viewModel.questionNo) {
             1 -> sp.setAnswer1(answer)

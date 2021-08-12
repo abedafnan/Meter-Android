@@ -43,26 +43,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/xxlarge"
-                tools:text="Teamwork Answers"
                 app:layout_constraintBottom_toBottomOf="@id/iv_header"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.33" />
+                app:layout_constraintVertical_bias="0.33"
+                tools:text="Teamwork Answers" />
 
             <TextView
+                android:id="@+id/tv_skill_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/xlarge"
                 android:background="@drawable/background_border_white_radius"
                 android:fontFamily="@font/gt_america_extended_medium"
-                android:textColor="@color/colorPrimary"
                 android:padding="@dimen/regular"
-                android:text="9/10"
+                android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_size_large"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_header_title" />
+                app:layout_constraintTop_toBottomOf="@id/tv_header_title"
+                tools:text="9/10" />
 
             <TextView
                 android:id="@+id/tv_title_answer"
@@ -78,13 +79,13 @@
                 app:layout_constraintTop_toBottomOf="@id/iv_header" />
 
             <androidx.cardview.widget.CardView
-                app:layout_constraintTop_toBottomOf="@id/tv_title_answer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/regular"
                 android:layout_marginBottom="@dimen/small"
-               android:layout_margin="@dimen/regular"
                 android:elevation="@dimen/cardview_default_elevation"
-                app:cardCornerRadius="@dimen/radius_background_small">
+                app:cardCornerRadius="@dimen/radius_background_small"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_answer">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

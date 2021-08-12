@@ -16,10 +16,13 @@ class LoginViewModel: ViewModel() {
     private var db: FirebaseFirestore = Firebase.firestore
     private val _loginFinished: MutableLiveData<Boolean> = MutableLiveData()
     private val _userId: MutableLiveData<String> = MutableLiveData()
+    private val _userName: MutableLiveData<String> = MutableLiveData()
 
     fun getLoginFinished(): MutableLiveData<Boolean> = _loginFinished
 
     fun getUserId(): MutableLiveData<String> = _userId
+
+    fun getUsername(): MutableLiveData<String> = _userName
 
     init {
         db = Firebase.firestore
@@ -38,7 +41,7 @@ class LoginViewModel: ViewModel() {
                         Log.d(TAG, "Email exists")
 
                         _userId.value = document.id
-                        Log.d(TAG, document.id)
+                        _userName.value = document["first_name"] as String?
 
                         if (encryptedPassword != null) {
                             lookForPassword(encryptedPassword)

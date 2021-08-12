@@ -51,6 +51,7 @@
                 app:layout_constraintVertical_bias="0.33" />
 
             <TextView
+                android:id="@+id/tv_final_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/xlarge"
@@ -58,7 +59,7 @@
                 android:fontFamily="@font/gt_america_extended_medium"
                 android:textColor="@color/colorPrimary"
                 android:padding="@dimen/regular"
-                android:text="9/10"
+                tools:text="9/10"
                 android:textSize="@dimen/text_size_large"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -77,14 +78,43 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_header" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_feedback"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layout_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/regular"
-                app:layout_constraintTop_toBottomOf="@id/tv_title_feedback"
-                tools:itemCount="4"
-                tools:listitem="@layout/item_feedback" />
+                android:orientation="vertical"
+                android:padding="@dimen/regular"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_feedback">
+
+                <ProgressBar
+                    android:id="@+id/progressbar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/regular"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/communication"
+                    layout="@layout/item_feedback"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/growth_mindset"
+                    layout="@layout/item_feedback"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/problem_solving"
+                    layout="@layout/item_feedback"
+                    android:visibility="gone" />
+
+                <include
+                    android:id="@+id/teamwork"
+                    layout="@layout/item_feedback"
+                    android:visibility="gone" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

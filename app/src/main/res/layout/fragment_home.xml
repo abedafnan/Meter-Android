@@ -66,6 +66,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_previous_interviews" />
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/regular"
+            android:background="@drawable/background_fill_white_radius"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/regular"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/tv_previous_interviews">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/close" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You have no interviews."
+                android:textSize="@dimen/text_size_medium" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_previous_interview"
             android:layout_width="match_parent"

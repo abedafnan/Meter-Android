@@ -24,6 +24,21 @@ class AnswersFragment : Fragment(){
 
         (activity as HomeActivity).showNavView(false)
 
+        val question = arguments?.getString("question")
+        val answer = arguments?.getString("answer")
+        val skill = arguments?.getString("skill")
+
+        //TODO: Set skill score
+
+        binding.tvHeaderTitle.text = "$skill Answers"
+        binding.tvQuestion.text = question
+
+        if(answer.isNullOrEmpty()) {
+            binding.tvFeedback.text = "No Answer.."
+        } else {
+            binding.tvFeedback.text = answer
+        }
+
         binding.back.setOnClickListener {
             findNavController().navigateUp()
         }

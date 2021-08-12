@@ -14,6 +14,7 @@ public class SharedPreferenceUtils {
     private SharedPreferences.Editor editor;
 
     private static final String USER_ID = "user_id";
+    private static final String USER_NAME = "user_name";
     private static final String ANSWER1 = "answer1";
     private static final String ANSWER2 = "answer2";
     private static final String ANSWER3 = "answer3";
@@ -43,6 +44,15 @@ public class SharedPreferenceUtils {
         editor.commit();
     }
 
+    public String getUserName() {
+        return sharedPreferences.getString(USER_NAME, "");
+    }
+
+    public void setUserName(String username){
+        editor.putString(USER_NAME, username);
+        editor.commit();
+    }
+
     public List<String> getAnswers() {
         List<String> answers = new ArrayList<>();
         answers.add(sharedPreferences.getString(ANSWER1, ""));
@@ -59,17 +69,17 @@ public class SharedPreferenceUtils {
     }
 
     public void setAnswer2(String answer) {
-        editor.putString(ANSWER1, answer);
+        editor.putString(ANSWER2, answer);
         editor.commit();
     }
 
     public void setAnswer3(String answer) {
-        editor.putString(ANSWER1, answer);
+        editor.putString(ANSWER3, answer);
         editor.commit();
     }
 
     public void setAnswer4(String answer) {
-        editor.putString(ANSWER1, answer);
+        editor.putString(ANSWER4, answer);
         editor.commit();
     }
 }
